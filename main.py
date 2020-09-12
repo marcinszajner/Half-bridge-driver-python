@@ -97,7 +97,7 @@ class MainClass(QMainWindow, gui.Ui_MainWindow):
             self.startStopButton.setText('STOP')
 
             self.serialport = serial.Serial()
-            self.serialport.baudrate = 921600
+            self.serialport.baudrate = 115200
             self.serialport.port = str(self.comportComboBox.currentText())
             self.serialport.timeout = 3
             #        self.serialport.parity = serial.PARITY_NONE
