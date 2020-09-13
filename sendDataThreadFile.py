@@ -17,6 +17,8 @@ class SendDataTreadClass(QThread):
         self.bitfield = c_uint32(0)
         self.frequencySliderMaximum = self.main_class.frequencySlider.maximum()
         self.frequencySliderMinimum = self.main_class.frequencySlider.minimum()
+        self.nPeriods = 32 # should be set by user
+        self.packetsize = self.main_class.samplePerPeriod * self.nPeriods
 
     def run(self):
         while self.main_class.threadRunStatus:
@@ -33,7 +35,7 @@ class SendDataTreadClass(QThread):
                     if sliderValue <= self.main_class.frequencySlider.minimum():
                         self.communicationState.setUpSweepDirection(True)
 
-                    packet_size = 256
+                    packet_size = self.packetsize
                     n_packet = self.calculateNpackets(sliderValue)
                     frequency_step = int(self.calculateFrequencyStep())
                     protocol = self.createProtocolDataAcquisition(packet_size, n_packet, frequency_step, int(self.main_class.frequencyToMCU))
@@ -47,7 +49,7 @@ class SendDataTreadClass(QThread):
                         protocol = self.createProtocolChange()
                         self.bitfield = c_uint32(0)
                     else:
-                        packet_size = 256
+                        packet_size = self.packetsize
                         n_packet = 1
                         frequency_step = 0
                         protocol = self.createProtocolDataAcquisition(packet_size,

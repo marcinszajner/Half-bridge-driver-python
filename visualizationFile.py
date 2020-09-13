@@ -49,18 +49,20 @@ class VisualizationClass:
 
             N = length_of_signal
             actual_frequency = float(self.main_class.frequencyLabel.text())
-            T = actual_frequency* 4 #rectified wave have 2x original frequency, that why 4 not 8
+            T = actual_frequency * self.main_class.samplePerPeriod/2
             yf = scipy.fftpack.fft(samples)
             xf = np.linspace(0.0, int(N/2),  int(N/2))*T/N
             yf = yf[:N // 2]
             fft_value = 2.0 / N * np.abs(yf)
 
-            phase = np.angle(yf[int(sample/8)])
+            phase = np.angle(yf[int(sample / self.main_class.samplePerPeriod)])
             if phase < 0:
-                phase = phase + np.pi
+                #np.pi/self.main_class.samplePerPeriod because miss one trigger point in synchronication
+                phase = phase + np.pi - np.pi/self.main_class.samplePerPeriod
             elif phase > 0:
-                phase = phase - np.pi
-            magnitude = fft_value[0] / 2 + fft_value[int(sample / 8)]
+                #np.pi/self.main_class.samplePerPeriod because miss one trigger point in synchronication
+                phase = phase - np.pi - np.pi/self.main_class.samplePerPeriod
+            magnitude = fft_value[0] / 2 + fft_value[int(sample / self.main_class.samplePerPeriod)]
             self.angleArray[int((position_in_array + position_step*z)/5)] = phase
             self.magArray[int((position_in_array + position_step*z)/5)] = magnitude
             fft_value[0] = 0

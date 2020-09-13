@@ -27,6 +27,7 @@ class MainClass(QMainWindow, gui.Ui_MainWindow):
         self.startStopButton.clicked.connect(self.startAnalyse)
 
         self.frequencyToMCU = 50000
+        self.samplePerPeriod = 16 #should be send in init msg when init msg will be created and set by user
 
         self.addToolBar(NavigationToolbar(self.MplWidget_phase.canvas, self))
 
