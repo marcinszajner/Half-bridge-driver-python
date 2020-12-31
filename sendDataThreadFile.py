@@ -77,6 +77,7 @@ class SendDataTreadClass(QThread):
         value = value_int.to_bytes(4,'little')
         protocol = (head + bytefield + value + (0x55).to_bytes(1, 'little'))
         self.insert_lengt(protocol)
+        self.caltulate_and_insert_crc(protocol)
         return protocol
 
     def createProtocolDataAcquisition(self, packet_size, n_packet, frequency_step, actual_frequency):
