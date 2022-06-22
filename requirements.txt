@@ -2,7 +2,7 @@ crcmod==1.7
 cycler==0.10.0
 kiwisolver==1.2.0
 matplotlib==3.2.1
-numpy==1.18.3
+numpy==1.22.0
 PyQt5==5.13.2
 PyQt5-sip==12.7.2
 pyqt5-tools==5.13.2.1.6rc1
