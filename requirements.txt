@@ -7,4 +7,4 @@ PyQt5==5.13.2
 PyQt5-sip==12.7.2
 pyqt5-tools==5.13.2.1.6rc1
 pyserial==3.4
-scipy==1.4.1
+scipy==1.10.0
